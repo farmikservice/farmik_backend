@@ -16,17 +16,29 @@ import orderRoutes from './user/routes/order.route.js'
 const app = express()
 dotenv.config()
 
+const clorsOption = {
+    origin: "http://localhost:5173",
+    methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+    credentials: true,
+}; 
+
+
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(express.urlencoded({extended : true}))
-app.use(cors({origin : 'http://localhost:5173/'}))
+app.use(cors(clorsOption))
 
+// User routes
 app.use('/api/auth', authRoutes)
 app.use('/api/products',verifyToken, productsRoutes)
+app.use('/api/orders', verifyToken, orderRoutes)
+
+// Admin routes
 app.use('/api/auth/admin', adminAuthRoutes)
 app.use('/api/admin', authenticateAdmin, metricsRoutes)
+
+// Agent routes
 app.use('/api/auth/agent', agentAuthRoutes)
-app.use('/api/orders', verifyToken, orderRoutes)
 
 app.listen(process.env.PORT, async() => {
     connectToDB()

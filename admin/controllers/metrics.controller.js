@@ -1,6 +1,7 @@
 import Product from "../../user/models/product.model.js"
 import User from "../../user/models/user.model.js"
 import Order from "../../user/models/order.model.js"
+import Agent from "../../agent/models/agent.model.js"
 
 export const getUsers = async(req, res) => {
     try {
@@ -42,5 +43,18 @@ export const getOrders = async(req, res) => {
     } catch(err) {
         console.log("Error in getOrders controller", err)
         res.status(500).json({message : "Internal server error!"})
+    }
+}
+
+export const agentList = async(req, res) => {
+    try {
+        const agents = await Agent.find({})
+        if(agents.length === 0) {
+            return res.status(404).json({message : "No agents to show!"})
+        }
+        res.status(200).json({agents})
+    } catch(err) {
+        console.log("Error in agentList controller", err)
+        res.status(500).json({message : "Internal server error!"})   
     }
 }

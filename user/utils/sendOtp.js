@@ -1,6 +1,6 @@
 import OTP from "../models/otp.model.js"
-import generateOtp from "../utils/generateOtp.js"
-import createOtpClient from "../utils/createOtpClient.js"
+import generateOtp from "./generateOtp.js"
+import createOtpClient from "./createOtpClient.js"
 
 export const sendOtp = async(phoneNumber) => {
     try {
