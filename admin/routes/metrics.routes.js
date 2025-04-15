@@ -7,6 +7,6 @@ metricsRoutes.get('/userslist', getUsers)
 metricsRoutes.get('/vehicleslist', getVehicles)
 metricsRoutes.get('/orderslist', getOrders)
 metricsRoutes.get('/agentslist', agentList)
-metricsRoutes.post('/add-agents', addAgent)
+metricsRoutes.post('/add-agents', addAgent) 
 
 export default metricsRoutes;
