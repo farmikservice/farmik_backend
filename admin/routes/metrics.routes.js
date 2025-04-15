@@ -1,5 +1,5 @@
 import express from 'express'
-import { agentList, getOrders, getUsers, getVehicles } from '../controllers/metrics.controller.js'
+import { addAgent, agentList, getOrders, getUsers, getVehicles } from '../controllers/metrics.controller.js'
 
 const metricsRoutes = express.Router()
 
@@ -7,5 +7,6 @@ metricsRoutes.get('/userslist', getUsers)
 metricsRoutes.get('/vehicleslist', getVehicles)
 metricsRoutes.get('/orderslist', getOrders)
 metricsRoutes.get('/agentslist', agentList)
+metricsRoutes.post('/add-agents', addAgent)
 
-export default metricsRoutes
+export default metricsRoutes;

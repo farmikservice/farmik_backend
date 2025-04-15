@@ -54,3 +54,12 @@ export const adminLogout = async (req, res) => {
         res.status(500).json({message : "Internal server error!"})
     }
 }
+
+export const getAdminInfo = async(req, res) => {
+    try {
+        res.status(200).json(req.admin)
+    } catch(err) {
+        console.log("Error in getAdminInfo controller")
+        res.status(500).json({message : "Internal server error!"})
+    }
+}
