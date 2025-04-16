@@ -102,3 +102,37 @@ export const addAgent = async (req, res) => {
         res.status(500).json({ message: "Internal server error!" })
     }
 }
+
+// Add New User 
+export const addUser = async (req, res) => {
+    try {
+        const {
+            fullName,
+            phoneNumber,
+        } = req.body
+
+        if (!fullName || !phoneNumber ) {
+            return res.status(400).json({ message: "All fields are required!" })
+        }
+
+        const isUserAlreadyExist = await User.findOne({ phoneNumber })
+        if (isUserAlreadyExist) {
+            return res.status(409).json({ message: "User already exist" })
+        }
+
+        const newUser = await User.create({ ...req.body})
+
+        if (newUser) {
+
+            res.status(200).json({
+                userId: newUser._id,
+                name: newUser.fullName,
+                phone: newUser.phoneNumber,
+            })
+        }
+
+    } catch (err) {
+        console.log("Error in addUser controller", err)
+        res.status(500).json({ message: "Internal server error!" })
+    }
+}
