@@ -17,16 +17,16 @@ const app = express()
 dotenv.config()
 
 const clorsOption = {
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
 };
 
+app.use(cors(clorsOption))
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
-app.use(cors(clorsOption))
 
 // User routes
 app.use('/api/auth', authRoutes)
