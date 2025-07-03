@@ -17,7 +17,7 @@ const app = express()
 dotenv.config()
 
 const clorsOption = {
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://farmik.in", "https://admin.farmik.in"],
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
 };
@@ -39,6 +39,11 @@ app.use('/api/admin', authenticateAdmin, metricsRoutes)
 
 // Agent routes
 app.use('/api/auth/agent', agentAuthRoutes)
+
+// testing 
+app.get('/', (req, res) => {
+    res.send('API IS WORKING...')
+})
 
 app.listen(process.env.PORT, async() => {
     connectToDB()
