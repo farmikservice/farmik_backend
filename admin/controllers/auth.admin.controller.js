@@ -15,9 +15,9 @@ export const adminLogin = async (req, res) => {
             return res.status(404).json({Message : "Invalid credentials!"})
         }
 
-        const isPasswordCorrect = await bcrypt.compare(password, admin.password) 
-        if(!isPasswordCorrect) {
-            return res.status(401).json({Message : "Invalid credentials!"})
+        const isPasswordCorrect = await admin.comparePassword(password) 
+        if (!isPasswordCorrect) {
+            return res.status(400).json({ message: "Invalid credentials!" })
         }
 
         if(admin) {
@@ -43,23 +43,23 @@ export const adminLogin = async (req, res) => {
 export const adminLogout = async (req, res) => {
     try {
         res.cookie('adminJwt', '', {
-            maxAge : 0,   
-            httpOnly : true,
-            secure : true,
-            sameSite : "None"
+            maxAge: 0,
+            httpOnly: true,
+            secure: true,
+            sameSite: "None"
         })
         return res.status(200).json({ message: "Logged out successfully!" });
-    } catch(err) {
+    } catch (err) {
         console.log("Error in logout controller", logout)
-        res.status(500).json({message : "Internal server error!"})
+        res.status(500).json({ message: "Internal server error!" })
     }
 }
 
-export const getAdminInfo = async(req, res) => {
+export const getAdminInfo = async (req, res) => {
     try {
         res.status(200).json(req.admin)
-    } catch(err) {
+    } catch (err) {
         console.log("Error in getAdminInfo controller")
-        res.status(500).json({message : "Internal server error!"})
+        res.status(500).json({ message: "Internal server error!" })
     }
 }
